@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.sharaafnazeer</groupId>
+    <artifactId>api-first-spring-boot</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>api-first-spring-boot</name>
+    <description>api-first-spring-boot</description>
+    <properties>
+        <java.version>22</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.codegen.v3</groupId>
+            <artifactId>swagger-codegen-maven-plugin</artifactId>
+            <version>3.0.56</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.3.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.6</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <!-- RELEASE_VERSION -->
+                <version>7.5.0</version>
+                <!-- /RELEASE_VERSION -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/static/api.yaml</inputSpec>
+                            <generatorName>spring</generatorName>
+
+
+                            <!-- Name of the package where handler, models and invokers should be generated -->
+                            <packageName>com.sharaafnazeer.apifirstspringboot</packageName>
+                            <apiPackage>com.sharaafnazeer.apifirstspringboot.handler</apiPackage>
+                            <modelPackage>com.sharaafnazeer.apifirstspringboot.model</modelPackage>
+                            <invokerPackage>com.sharaafnazeer.apifirstspringboot.handler</invokerPackage>
+<!--                            <configHelp>true</configHelp>-->
+                            <library>spring-boot</library>
+                            <configOptions>
+                                <library>spring-boot</library>
+                                <!-- Name of the source folder path under 'generated' folder -->
+                                <sourceFolder>src/main/java</sourceFolder>
+                                <!-- Set to true if you want to generate a delegate class, which
+                                    will be injected in controller -->
+                                <delegatePattern>true</delegatePattern>
+                                <!-- If set to true, generates only API controller interface and
+                                    you need to provide the implementation -->
+                                <interfaceOnly>false</interfaceOnly>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <openApiNullable>true</openApiNullable>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
