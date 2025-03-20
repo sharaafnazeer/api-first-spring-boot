@@ -27,16 +27,6 @@
             <version>3.0.56</version>
         </dependency>
         <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.8.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>1.5.3.Final</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
@@ -50,13 +40,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <version>3.3.0</version>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openapitools</groupId>
-            <artifactId>jackson-databind-nullable</artifactId>
-            <version>0.2.6</version>
         </dependency>
     </dependencies>
 
@@ -92,23 +77,36 @@
 
                             <!-- Name of the package where handler, models and invokers should be generated -->
                             <packageName>com.sharaafnazeer.apifirstspringboot</packageName>
-                            <apiPackage>com.sharaafnazeer.apifirstspringboot.handler</apiPackage>
+                            <apiPackage>com.sharaafnazeer.apifirstspringboot.api</apiPackage>
                             <modelPackage>com.sharaafnazeer.apifirstspringboot.model</modelPackage>
                             <invokerPackage>com.sharaafnazeer.apifirstspringboot.handler</invokerPackage>
 <!--                            <configHelp>true</configHelp>-->
                             <library>spring-boot</library>
+
+                            <!-- This hack will help to ignore the test files during generation !-->
+                            <ignoreFileOverride>${project.basedir}/.openapi-generator-ignore</ignoreFileOverride>
+
                             <configOptions>
                                 <library>spring-boot</library>
                                 <!-- Name of the source folder path under 'generated' folder -->
                                 <sourceFolder>src/main/java</sourceFolder>
                                 <!-- Set to true if you want to generate a delegate class, which
                                     will be injected in controller -->
-                                <delegatePattern>true</delegatePattern>
+                                <delegatePattern>false</delegatePattern>
                                 <!-- If set to true, generates only API controller interface and
                                     you need to provide the implementation -->
-                                <interfaceOnly>false</interfaceOnly>
+                                <interfaceOnly>true</interfaceOnly>
                                 <useSpringBoot3>true</useSpringBoot3>
-                                <openApiNullable>true</openApiNullable>
+                                <openApiNullable>false</openApiNullable>
+                                <useJakartaEe>true</useJakartaEe>
+                                <serializableModel>true</serializableModel>
+                                <useSpringController>true</useSpringController>
+
+                                <!-- Not affective at the moment. still creates the API test files which will fail while running !-->
+                                <generateApiTests>false</generateApiTests>
+
+
+
                             </configOptions>
                         </configuration>
                     </execution>
